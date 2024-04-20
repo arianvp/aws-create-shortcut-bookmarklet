@@ -66,7 +66,7 @@ after me pasting in [https://us-east-1.console.aws.amazon.com/ec2/home?region=us
 The new URL will prompt you to log in to my AWS account through SSO, and afterwards redirect you to the specific resource! Amazing!
 
 <video controls width="884">
-  <source src="assets/shorcut-demo.webm" type="video/webm" alt="Video demonstrating shortlinks">
+  <source src="assets/shortcut-demo.webm" type="video/webm" alt="Video demonstrating shortlinks">
   Your browser does not support the video tag.
 </video>
 
