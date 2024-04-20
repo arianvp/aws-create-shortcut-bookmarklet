@@ -184,8 +184,22 @@ And we turn that into a bookmarklet URL. Try it now and drag it to your Bookmark
 [1]: javascript:(function%20(norole)%20%7B%0A%20%20function%20parseCookie(e%2C%20t%20%3D%20document.cookie)%20%7B%0A%20%20%20%20const%20n%20%3D%20t.match(%60%24%7Be%7D%3D(%5B%5E%3B%5D*)%60)%3B%0A%20%20%20%20if%20(n%20%26%26%20n%5B1%5D)%20return%20n%5B1%5D%3B%0A%20%20%7D%0A%20%20%2F*%20undocumented%20but%20this%20%20is%20%20how%20AWS%20%20telemetry%20gets%20user%20info%20*%2F%0A%20%20const%20sessionData%20%3D%20JSON.parse(%0A%20%20%20%20decodeURIComponent(parseCookie(%22aws-userInfo%22))%0A%20%20)%3B%0A%20%20const%20issuer%20%3D%20new%20URL(sessionData.issuer)%3B%0A%20%20const%20hash%20%3D%20issuer.hash%3B%0A%20%20const%20%5Bfront%2C%20params%5D%20%3D%20hash.split(%22%3F%22)%3B%0A%20%20const%20urlParams%20%3D%20new%20URLSearchParams(params)%3B%0A%20%20if%20(norole)%20%7B%20urlParams.delete(%22role_name%22)%3B%20%7D%3B%0A%20%20urlParams.set(%22destination%22%2C%20window.top.location.href)%3B%0A%20%20const%20newHash%20%3D%20%60%24%7Bfront%7D%3F%24%7BurlParams.toString()%7D%60%3B%0A%20%20issuer.hash%20%3D%20newHash%3B%0A%20%20const%20el%20%3D%20document.activeElement%3B%0A%20%20navigator.clipboard.writeText(issuer.href)%3B%0A%20%20alert(%60Copied%20ShortLink%20to%20clipboard%60)%3B%0A%20%20el.focus()%3B%0A%7D)(false)%3B 
 [2]: javascript:(function%20(norole)%20%7B%0A%20%20function%20parseCookie(e%2C%20t%20%3D%20document.cookie)%20%7B%0A%20%20%20%20const%20n%20%3D%20t.match(%60%24%7Be%7D%3D(%5B%5E%3B%5D*)%60)%3B%0A%20%20%20%20if%20(n%20%26%26%20n%5B1%5D)%20return%20n%5B1%5D%3B%0A%20%20%7D%0A%20%20%2F*%20undocumented%20but%20this%20%20is%20%20how%20AWS%20%20telemetry%20gets%20user%20info%20*%2F%0A%20%20const%20sessionData%20%3D%20JSON.parse(%0A%20%20%20%20decodeURIComponent(parseCookie(%22aws-userInfo%22))%0A%20%20)%3B%0A%20%20const%20issuer%20%3D%20new%20URL(sessionData.issuer)%3B%0A%20%20const%20hash%20%3D%20issuer.hash%3B%0A%20%20const%20%5Bfront%2C%20params%5D%20%3D%20hash.split(%22%3F%22)%3B%0A%20%20const%20urlParams%20%3D%20new%20URLSearchParams(params)%3B%0A%20%20if%20(norole)%20%7B%20urlParams.delete(%22role_name%22)%3B%20%7D%3B%0A%20%20urlParams.set(%22destination%22%2C%20window.top.location.href)%3B%0A%20%20const%20newHash%20%3D%20%60%24%7Bfront%7D%3F%24%7BurlParams.toString()%7D%60%3B%0A%20%20issuer.hash%20%3D%20newHash%3B%0A%20%20const%20el%20%3D%20document.activeElement%3B%0A%20%20navigator.clipboard.writeText(issuer.href)%3B%0A%20%20alert(%60Copied%20ShortLink%20to%20clipboard%60)%3B%0A%20%20el.focus()%3B%0A%7D)(true)%3B
 
-## Conclusion
+## Conclusion and thoughts
 
 I hope this bookmarklet will help you share AWS Console pages with your colleagues more easily.
 This is using an undocumented cookie, so it might break at any time. 
 I hope AWS will add a "Create Shortcut" button to every AWS Console page soon!
+
+Multi-account in AWS is an afterthought and it shows. Having to switch between accounts
+by logging in and logging out is cumbersome. The AWS Console URLs don't contain the
+account ID, so you can't share links to specific resources with colleagues.
+
+AWS IAM Identity Center feels like a step in the right direction, but it is
+still cumbersome to use. It is clear  that this was bolted on top of the
+existing AWS Console, and not designed from the ground up to be user friendly.
+
+GCP has non of these hoops to jump through, as they simply encode all the
+information in the URL. Shortcuts are a nice feature, but it would be even
+nicer if AWS just fixed the root problem and made the Console URLs shareable
+by default. And make the Console multi-account aware instead of having to jump
+through a separate portal to switch accounts.
