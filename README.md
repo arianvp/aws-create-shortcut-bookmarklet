@@ -15,6 +15,11 @@ Drag the following links to your Bookmark bar to create a bookmarklet that will 
 * [Share shortcut][1]. Will create a link that tries to assume the same role as the person who created the link.
 * [Share shortcut without role][2]. Strips off the role so that the user can select their own role to assume. (Useful if sharing page to less privileged person).
 
+<video controls width="884">
+  <source src="assets/bookmarklet-demo.webm" type="video/webm" alt="Video demonstrating bookmarklet">
+  Your browser does not support the video tag. 
+</video>
+
 However if you want to know how this works, read on! Also you should probably not run
 arbitrary bookmarklets without auditing them first to make sure I'm not stealing your credentials `:)`
 
